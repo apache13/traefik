@@ -1,0 +1,24 @@
+version: "3.5"
+services:
+    traefik:
+        image: traefik:v2.3.6
+        environment:
+            TZ: Asia/Bangkok
+        ports:
+            - "80:80"        
+            - "8080:8080"               
+        command:
+            - "--api.insecure=true"
+            - "--providers.docker=true"
+            - "--providers.docker.exposedbydefault=false"
+            - "--entrypoints.whoami.address=:80"
+            - "--providers.file.directory=/ext"
+            - "--providers.file.watch=true"
+        volumes:            
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./ext:/ext:ro
+    whoami:
+        image: "traefik/whoami"
+        ports:
+            - "81:80"
+        

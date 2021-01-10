@@ -1,0 +1,12 @@
+## Dynamic configuration
+[http.services]
+  [http.services.my-service.loadBalancer]
+
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://192.168.1.41:81/"
+
+## Dynamic configuration
+[http.routers]
+  [http.routers.my-router]
+    rule = "Path(`/whoami`)"
+    service = "my-service"	  
